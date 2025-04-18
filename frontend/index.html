@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIChinatrip - Plan Your Perfect Trip to China</title>
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #457b9d;
+            --light: #f1faee;
+            --dark: #1d3557;
+            --accent: #a8dadc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background-color: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            background-color: #d62839;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('/api/placeholder/1200/800');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            color: white;
+            margin-bottom: 60px;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        /* Destinations Section */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--dark);
+        }
+
+        .destinations {
+            margin-bottom: 60px;
+        }
+        
+        .destinations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .destination-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .destination-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .destination-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .destination-info {
+            padding: 20px;
+        }
+        
+        .destination-info h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .destination-info p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        /* Travel Agencies Section */
+        .travel-agencies {
+            background-color: var(--accent);
+            padding: 60px 0;
+            margin-bottom: 60px;
+        }
+        
+        .agencies-list {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+        
+        .agency-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 280px;
+        }
+        
+        .agency-logo {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+        
+        .agency-card h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+        
+        .agency-card p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        /* CTA Section */
+        .cta {
+            background-color: var(--primary);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-light {
+            background-color: white;
+            color: var(--primary);
+            border: none;
+            font-size: 1.1rem;
+            padding: 15px 30px;
+        }
+        
+        .btn-light:hover {
+            background-color: var(--light);
+        }
+        
+        /* How It Works Section */
+        .how-it-works {
+            margin-bottom: 60px;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .step-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+        }
+        
+        .step-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 50px 0;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #a8dadc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .hero {
+                height: auto;
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">AIChinatrip</a>
+                <nav class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Destinations</a>
+                    <a href="#">How It Works</a>
+                    <a href="#">Partners</a>
+                    <a href="#">Contact</a>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Log In</a>
+                    <a href="#" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover the Beauty of China</h1>
+                <p>Let our AI help you plan the perfect trip to China based on your preferences, budget, and interests.</p>
+                <a href="#" class="btn btn-primary">Sign Up Free to Plan Your Trip</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations">
+        <div class="container">
+            <h2 class="section-title">Popular Destinations</h2>
+            <div class="destinations-grid">
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Great Wall of China" class="destination-img">
+                    <div class="destination-info">
+                        <h3>Great Wall of China</h3>
+                        <p>Experience one of the world's wonders stretching over 13,000 miles across ancient Chinese borders.</p>
+                        <a href="#" class="btn btn-outline">Explore</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Shanghai Skyline" class="destination-img">
+                    <div class="destination-info">
+                        <h3>Shanghai</h3>
+                        <p>Discover the perfect blend of traditional culture and modern innovation in China's largest city.</p>
+                        <a href="#" class="btn btn-outline">Explore</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Zhangjiajie National Forest Park" class="destination-img">
+                    <div class="destination-info">
+                        <h3>Zhangjiajie</h3>
+                        <p>Explore the stunning pillar-like formations that inspired landscapes in the movie Avatar.</p>
+                        <a href="#" class="btn btn-outline">Explore</a>
+                    </div>
+                </div>
+                <div class="destination-card">
+                    <img src="/api/placeholder/400/320" alt="Terracotta Army" class="destination-img">
+                    <div class="destination-info">
+                        <h3>Xi'an & Terracotta Army</h3>
+                        <p>Step back in time to see thousands of life-sized warriors built over 2,000 years ago.</p>
+                        <a href="#" class="btn btn-outline">Explore</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="travel-agencies">
+        <div class="container">
+            <h2 class="section-title">Our Travel Partners</h2>
+            <div class="agencies-list">
+                <div class="agency-card">
+                    <img src="/api/placeholder/200/200" alt="China Travel Service" class="agency-logo">
+                    <h3>China Travel Service</h3>
+                    <p>Premier travel agency specializing in authentic cultural experiences across China.</p>
+                </div>
+                <div class="agency-card">
+                    <img src="/api/placeholder/200/200" alt="Dragon Adventures" class="agency-logo">
+                    <h3>Dragon Adventures</h3>
+                    <p>Expert guides for outdoor enthusiasts seeking China's most breathtaking natural landscapes.</p>
+                </div>
+                <div class="agency-card">
+                    <img src="/api/placeholder/200/200" alt="Silk Road Journeys" class="agency-logo">
+                    <h3>Silk Road Journeys</h3>
+                    <p>Specialized tours along the historic Silk Road with expert cultural insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Plan Your Perfect China Trip?</h2>
+            <p>Sign up for free and let our AI assistant help you create a personalized itinerary based on your preferences, budget, and interests.</p>
+            <a href="#" class="btn btn-light">Sign Up Free</a>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Sign up and tell us about your travel preferences, dietary needs, and interests.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Get AI Recommendations</h3>
+                    <p>Our AI will suggest personalized destinations, attractions, and restaurants based on your profile.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Customize Your Itinerary</h3>
+                    <p>Fine-tune your trip plan, selecting your favorite recommendations and adjusting as needed.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Book With Confidence</h3>
+                    <p>Choose between self-guided tours or book with our partner agencies for a guided experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AIChinatrip</h3>
+                    <p>Your AI-powered guide to discovering the beauty and culture of China.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Destinations</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Popular Destinations</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Beijing</a></li>
+                        <li><a href="#">Shanghai</a></li>
+                        <li><a href="#">Xi'an</a></li>
+                        <li><a href="#">Chengdu</a></li>
+                        <li><a href="#">Guilin</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:info@aichinatrip.com">info@aichinatrip.com</a></li>
+                        <li><a href="tel:+1234567890">+123 456 7890</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 AIChinatrip. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
